@@ -70,6 +70,7 @@ namespace AutoRent.UI.Forms
  }
 
  MessageBox.Show("Аренда создана");
+ dataGridViewRentals.Refresh();
  }
  catch (System.Exception ex)
  {
@@ -87,12 +88,28 @@ namespace AutoRent.UI.Forms
  var actualReturn = dateTimePickerActualReturn.Value.Date;
  await _rentalService.CloseRentalAsync(rental.RentalId, actualReturn);
  MessageBox.Show("Аренда закрыта");
+ dataGridViewRentals.Refresh();
  }
  }
  catch (System.Exception ex)
  {
  MessageBox.Show("Ошибка: " + ex.Message);
  Logger.Error("RentalsForm.buttonClose_Click: " + ex);
+ }
+ }
+
+ private void textBoxFilterClient_TextChanged(object sender, EventArgs e)
+ {
+ var filter = textBoxFilterClient.Text.Trim();
+ if (string.IsNullOrEmpty(filter))
+ {
+ dataGridViewRentals.DataSource = _context.Rentals.Local.ToBindingList();
+ }
+ else
+ {
+ var filtered = _context.Rentals.Local.Where(r => r.Client != null && r.Client.LastName.IndexOf(filter, StringComparison.OrdinalIgnoreCase) >=0).ToList();
+ dataGridViewRentals.DataSource = null;
+ dataGridViewRentals.DataSource = filtered;
  }
  }
  }

@@ -38,6 +38,15 @@ namespace AutoRent.UI.Forms
  this.textBoxNotes = new System.Windows.Forms.TextBox();
  this.buttonCreate = new System.Windows.Forms.Button();
  this.buttonClose = new System.Windows.Forms.Button();
+ this.labelCar = new System.Windows.Forms.Label();
+ this.labelClient = new System.Windows.Forms.Label();
+ this.labelDateOut = new System.Windows.Forms.Label();
+ this.labelPlannedReturn = new System.Windows.Forms.Label();
+ this.labelActualReturn = new System.Windows.Forms.Label();
+ this.labelPrice = new System.Windows.Forms.Label();
+ this.labelNotes = new System.Windows.Forms.Label();
+ this.textBoxFilterClient = new System.Windows.Forms.TextBox();
+ this.labelFilterClient = new System.Windows.Forms.Label();
  ((System.ComponentModel.ISupportInitialize)(this.dataGridViewRentals)).BeginInit();
  ((System.ComponentModel.ISupportInitialize)(this.numericUpDownPricePerDay)).BeginInit();
  this.SuspendLayout();
@@ -45,7 +54,7 @@ namespace AutoRent.UI.Forms
  // dataGridViewRentals
  // 
  this.dataGridViewRentals.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
- this.dataGridViewRentals.Location = new System.Drawing.Point(12,12);
+ this.dataGridViewRentals.Location = new System.Drawing.Point(12,40);
  this.dataGridViewRentals.Name = "dataGridViewRentals";
  this.dataGridViewRentals.RowTemplate.Height =25;
  this.dataGridViewRentals.Size = new System.Drawing.Size(600,350);
@@ -54,7 +63,7 @@ namespace AutoRent.UI.Forms
  // comboBoxCars
  // 
  this.comboBoxCars.FormattingEnabled = true;
- this.comboBoxCars.Location = new System.Drawing.Point(630,12);
+ this.comboBoxCars.Location = new System.Drawing.Point(630,30);
  this.comboBoxCars.Name = "comboBoxCars";
  this.comboBoxCars.Size = new System.Drawing.Size(200,23);
  this.comboBoxCars.TabIndex =1;
@@ -62,28 +71,28 @@ namespace AutoRent.UI.Forms
  // comboBoxClients
  // 
  this.comboBoxClients.FormattingEnabled = true;
- this.comboBoxClients.Location = new System.Drawing.Point(630,50);
+ this.comboBoxClients.Location = new System.Drawing.Point(630,70);
  this.comboBoxClients.Name = "comboBoxClients";
  this.comboBoxClients.Size = new System.Drawing.Size(200,23);
  this.comboBoxClients.TabIndex =2;
  // 
  // dateTimePickerDateOut
  // 
- this.dateTimePickerDateOut.Location = new System.Drawing.Point(630,90);
+ this.dateTimePickerDateOut.Location = new System.Drawing.Point(630,110);
  this.dateTimePickerDateOut.Name = "dateTimePickerDateOut";
  this.dateTimePickerDateOut.Size = new System.Drawing.Size(200,23);
  this.dateTimePickerDateOut.TabIndex =3;
  // 
  // dateTimePickerPlannedReturn
  // 
- this.dateTimePickerPlannedReturn.Location = new System.Drawing.Point(630,130);
+ this.dateTimePickerPlannedReturn.Location = new System.Drawing.Point(630,150);
  this.dateTimePickerPlannedReturn.Name = "dateTimePickerPlannedReturn";
  this.dateTimePickerPlannedReturn.Size = new System.Drawing.Size(200,23);
  this.dateTimePickerPlannedReturn.TabIndex =4;
  // 
  // dateTimePickerActualReturn
  // 
- this.dateTimePickerActualReturn.Location = new System.Drawing.Point(630,170);
+ this.dateTimePickerActualReturn.Location = new System.Drawing.Point(630,230);
  this.dateTimePickerActualReturn.Name = "dateTimePickerActualReturn";
  this.dateTimePickerActualReturn.Size = new System.Drawing.Size(200,23);
  this.dateTimePickerActualReturn.TabIndex =5;
@@ -91,7 +100,7 @@ namespace AutoRent.UI.Forms
  // numericUpDownPricePerDay
  // 
  this.numericUpDownPricePerDay.DecimalPlaces =2;
- this.numericUpDownPricePerDay.Location = new System.Drawing.Point(630,210);
+ this.numericUpDownPricePerDay.Location = new System.Drawing.Point(630,190);
  this.numericUpDownPricePerDay.Maximum = new decimal(new int[] {100000,0,0,0 });
  this.numericUpDownPricePerDay.Name = "numericUpDownPricePerDay";
  this.numericUpDownPricePerDay.Size = new System.Drawing.Size(200,23);
@@ -99,7 +108,7 @@ namespace AutoRent.UI.Forms
  // 
  // textBoxNotes
  // 
- this.textBoxNotes.Location = new System.Drawing.Point(630,250);
+ this.textBoxNotes.Location = new System.Drawing.Point(630,270);
  this.textBoxNotes.Multiline = true;
  this.textBoxNotes.Name = "textBoxNotes";
  this.textBoxNotes.Size = new System.Drawing.Size(200,60);
@@ -107,7 +116,7 @@ namespace AutoRent.UI.Forms
  // 
  // buttonCreate
  // 
- this.buttonCreate.Location = new System.Drawing.Point(630,330);
+ this.buttonCreate.Location = new System.Drawing.Point(630,340);
  this.buttonCreate.Name = "buttonCreate";
  this.buttonCreate.Size = new System.Drawing.Size(95,32);
  this.buttonCreate.TabIndex =8;
@@ -117,7 +126,7 @@ namespace AutoRent.UI.Forms
  // 
  // buttonClose
  // 
- this.buttonClose.Location = new System.Drawing.Point(735,330);
+ this.buttonClose.Location = new System.Drawing.Point(735,340);
  this.buttonClose.Name = "buttonClose";
  this.buttonClose.Size = new System.Drawing.Size(95,32);
  this.buttonClose.TabIndex =9;
@@ -125,11 +134,46 @@ namespace AutoRent.UI.Forms
  this.buttonClose.UseVisualStyleBackColor = true;
  this.buttonClose.Click += new System.EventHandler(this.buttonClose_Click);
  // 
+ // Labels
+ //
+ this.labelCar.Location = new System.Drawing.Point(630,10);
+ this.labelCar.Text = "Автомобиль:";
+ this.labelClient.Location = new System.Drawing.Point(630,50);
+ this.labelClient.Text = "Клиент:";
+ this.labelDateOut.Location = new System.Drawing.Point(630,90);
+ this.labelDateOut.Text = "Дата выдачи:";
+ this.labelPlannedReturn.Location = new System.Drawing.Point(630,130);
+ this.labelPlannedReturn.Text = "Планируемая дата возврата:";
+ this.labelPrice.Location = new System.Drawing.Point(630,170);
+ this.labelPrice.Text = "Цена/день:";
+ this.labelActualReturn.Location = new System.Drawing.Point(630,210);
+ this.labelActualReturn.Text = "Фактическая дата возврата:";
+ this.labelNotes.Location = new System.Drawing.Point(630,250);
+ this.labelNotes.Text = "Примечания:";
+ 
+ // Filter controls
+ this.textBoxFilterClient.Location = new System.Drawing.Point(12,12);
+ this.textBoxFilterClient.Name = "textBoxFilterClient";
+ this.textBoxFilterClient.Size = new System.Drawing.Size(200,23);
+ this.labelFilterClient.Location = new System.Drawing.Point(12,-2);
+ this.labelFilterClient.Text = "Фильтр по фамилии клиента:";
+ this.textBoxFilterClient.TextChanged += new System.EventHandler(this.textBoxFilterClient_TextChanged);
+
+ // 
  // RentalsForm
  // 
  this.AutoScaleDimensions = new System.Drawing.SizeF(7F,15F);
  this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
  this.ClientSize = new System.Drawing.Size(860,380);
+ this.Controls.Add(this.labelFilterClient);
+ this.Controls.Add(this.textBoxFilterClient);
+ this.Controls.Add(this.labelNotes);
+ this.Controls.Add(this.labelActualReturn);
+ this.Controls.Add(this.labelPrice);
+ this.Controls.Add(this.labelPlannedReturn);
+ this.Controls.Add(this.labelDateOut);
+ this.Controls.Add(this.labelClient);
+ this.Controls.Add(this.labelCar);
  this.Controls.Add(this.buttonClose);
  this.Controls.Add(this.buttonCreate);
  this.Controls.Add(this.textBoxNotes);
@@ -162,5 +206,14 @@ namespace AutoRent.UI.Forms
  private System.Windows.Forms.TextBox textBoxNotes;
  private System.Windows.Forms.Button buttonCreate;
  private System.Windows.Forms.Button buttonClose;
+ private System.Windows.Forms.Label labelCar;
+ private System.Windows.Forms.Label labelClient;
+ private System.Windows.Forms.Label labelDateOut;
+ private System.Windows.Forms.Label labelPlannedReturn;
+ private System.Windows.Forms.Label labelActualReturn;
+ private System.Windows.Forms.Label labelPrice;
+ private System.Windows.Forms.Label labelNotes;
+ private System.Windows.Forms.TextBox textBoxFilterClient;
+ private System.Windows.Forms.Label labelFilterClient;
  }
 }
