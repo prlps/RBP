@@ -25,16 +25,32 @@ namespace AutoRent.UI.Forms
 
  private async void RentalsForm_Load(object sender, EventArgs e)
  {
+ try
+ {
  await LoadDataAsync();
+ }
+ catch (Exception ex)
+ {
+ MessageBox.Show("Ошибка при загрузке данных: " + ex.Message);
+ Logger.Error("RentalsForm.LoadDataAsync: " + ex);
+ }
  }
 
  private async Task LoadDataAsync()
  {
  await _context.Cars.LoadAsync();
  await _context.Clients.LoadAsync();
- await _context.Rentals.Include(r=>r.Car).Include(r=>r.Client).LoadAsync();
+ await _context.Rentals.Include(r => r.Car).Include(r => r.Client).LoadAsync();
 
  // Привязка к DataGridView и ComboBox
+ dataGridViewRentals.AutoSizeColumnsMode = DataGridViewAutoSizeColumnsMode.Fill;
+ dataGridViewRentals.SelectionMode = DataGridViewSelectionMode.FullRowSelect;
+ dataGridViewRentals.MultiSelect = false;
+ dataGridViewRentals.ReadOnly = true;
+
+ comboBoxCars.DisplayMember = "Make";
+ comboBoxClients.DisplayMember = "LastName";
+
  dataGridViewRentals.DataSource = _context.Rentals.Local.ToBindingList();
  comboBoxCars.DataSource = _context.Cars.Local.ToBindingList();
  comboBoxClients.DataSource = _context.Clients.Local.ToBindingList();
@@ -50,6 +66,7 @@ namespace AutoRent.UI.Forms
 
  private async void buttonCreate_Click(object sender, System.EventArgs e)
  {
+ buttonCreate.Enabled = false;
  try
  {
  if (comboBoxCars.SelectedItem is not Car car || comboBoxClients.SelectedItem is not Client client)
@@ -60,7 +77,24 @@ namespace AutoRent.UI.Forms
 
  var dateOut = dateTimePickerDateOut.Value.Date;
  var plannedReturn = dateTimePickerPlannedReturn.Value.Date;
+ if (plannedReturn < dateOut)
+ {
+ MessageBox.Show("Планируемая дата возврата должна быть позже даты выдачи.");
+ return;
+ }
  var price = numericUpDownPricePerDay.Value;
+ if (price <=0)
+ {
+ MessageBox.Show("Цена в день должна быть больше0.");
+ return;
+ }
+
+ // optional quick check of availability flag
+ if (!car.IsAvailable)
+ {
+ var ok = MessageBox.Show("Автомобиль помечен как недоступный. Попробовать создать аренду?", "Подтвердите", MessageBoxButtons.YesNo);
+ if (ok != DialogResult.Yes) return;
+ }
 
  var rental = await _rentalService.CreateRentalAsync(car.CarId, client.ClientId, dateOut, plannedReturn, price, textBoxNotes.Text);
  if (rental == null)
@@ -70,25 +104,35 @@ namespace AutoRent.UI.Forms
  }
 
  MessageBox.Show("Аренда создана");
- dataGridViewRentals.Refresh();
+ await RefreshListAsync();
  }
  catch (System.Exception ex)
  {
  MessageBox.Show("Ошибка: " + ex.Message);
  Logger.Error("RentalsForm.buttonCreate_Click: " + ex);
  }
+ finally
+ {
+ buttonCreate.Enabled = true;
+ }
  }
 
  private async void buttonClose_Click(object sender, System.EventArgs e)
  {
+ buttonClose.Enabled = false;
  try
  {
  if (dataGridViewRentals.CurrentRow?.DataBoundItem is Rental rental)
  {
  var actualReturn = dateTimePickerActualReturn.Value.Date;
+ if (actualReturn < rental.DateOut)
+ {
+ MessageBox.Show("Фактическая дата возврата не может быть раньше даты выдачи.");
+ return;
+ }
  await _rentalService.CloseRentalAsync(rental.RentalId, actualReturn);
  MessageBox.Show("Аренда закрыта");
- dataGridViewRentals.Refresh();
+ await RefreshListAsync();
  }
  }
  catch (System.Exception ex)
@@ -96,6 +140,22 @@ namespace AutoRent.UI.Forms
  MessageBox.Show("Ошибка: " + ex.Message);
  Logger.Error("RentalsForm.buttonClose_Click: " + ex);
  }
+ finally
+ {
+ buttonClose.Enabled = true;
+ }
+ }
+
+ private async Task RefreshListAsync()
+ {
+ // reload fresh data
+ await _context.Cars.LoadAsync();
+ await _context.Clients.LoadAsync();
+ await _context.Rentals.Include(r => r.Client).Include(r => r.Car).LoadAsync();
+
+ dataGridViewRentals.DataSource = _context.Rentals.Local.ToBindingList();
+ comboBoxCars.DataSource = _context.Cars.Local.ToBindingList();
+ comboBoxClients.DataSource = _context.Clients.Local.ToBindingList();
  }
 
  private void textBoxFilterClient_TextChanged(object sender, EventArgs e)
