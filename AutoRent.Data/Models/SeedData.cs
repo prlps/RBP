@@ -1,5 +1,4 @@
 ﻿using AutoRent.Data.Models;
-using Microsoft.EntityFrameworkCore;
 using System;
 using System.Linq;
 
@@ -9,7 +8,7 @@ namespace AutoRent.Data
     {
         public static void Initialize(AutoRentContext context)
         {
-            context.Database.Migrate();
+            // Do not call Migrate here; Program ensures database is created.
 
             if (!context.Cars.Any())
             {

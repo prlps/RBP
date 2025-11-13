@@ -24,7 +24,7 @@ namespace AutoRent.UI
                 // Ensure database and seed data
                 try
                 {
-                    context.Database.Migrate();
+                    context.Database.EnsureCreated();
                     SeedData.Initialize(context);
                 }
                 catch (Exception ex)
