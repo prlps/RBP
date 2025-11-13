@@ -21,34 +21,58 @@ namespace AutoRent.UI.Forms
  InitializeComponent();
  }
 
+ private async Task RunWithProgressAsync(Func<Task> action, string startStatus = "Выполнение...", string doneStatus = "Готово")
+ {
+ try
+ {
+ labelStatus.Text = startStatus;
+ progressBar.Style = ProgressBarStyle.Marquee;
+ ToggleButtons(false);
+ await action();
+ labelStatus.Text = doneStatus;
+ }
+ catch (Exception ex)
+ {
+ labelStatus.Text = "Ошибка";
+ MessageBox.Show("Ошибка: " + ex.Message);
+ Logger.Error("ReportsForm.RunWithProgressAsync: " + ex);
+ }
+ finally
+ {
+ progressBar.Style = ProgressBarStyle.Blocks;
+ ToggleButtons(true);
+ }
+ }
+
+ private void ToggleButtons(bool enabled)
+ {
+ buttonExportExcel.Enabled = enabled;
+ buttonExportHtml.Enabled = enabled;
+ buttonGenerateWord.Enabled = enabled;
+ buttonImportClients.Enabled = enabled;
+ buttonImportCars.Enabled = enabled;
+ }
+
  private async void buttonExportExcel_Click(object sender, EventArgs e)
  {
  using var sfd = new SaveFileDialog { Filter = "Excel files (*.xlsx)|*.xlsx", FileName = "AutoRent_AllData.xlsx" };
  if (sfd.ShowDialog(this) != DialogResult.OK) return;
- try
+ await RunWithProgressAsync(async () =>
  {
  await _reportService.ExportAllDataToExcelAsync(sfd.FileName);
  MessageBox.Show("Экспорт в Excel завершён");
- }
- catch (Exception ex)
- {
- MessageBox.Show("Ошибка экспорта: " + ex.Message);
- }
+ });
  }
 
  private async void buttonExportHtml_Click(object sender, EventArgs e)
  {
  using var sfd = new SaveFileDialog { Filter = "HTML files (*.html)|*.html", FileName = "RentalsReport.html" };
  if (sfd.ShowDialog(this) != DialogResult.OK) return;
- try
+ await RunWithProgressAsync(async () =>
  {
  await _reportService.ExportRentalsHtmlAsync(sfd.FileName);
  MessageBox.Show("HTML-отчёт создан");
- }
- catch (Exception ex)
- {
- MessageBox.Show("Ошибка: " + ex.Message);
- }
+ });
  }
 
  private async void buttonGenerateWord_Click(object sender, EventArgs e)
@@ -57,45 +81,34 @@ namespace AutoRent.UI.Forms
  if (!int.TryParse(idText, out var id)) return;
  using var sfd = new SaveFileDialog { Filter = "Word Document (*.docx)|*.docx", FileName = $"agreement_{id}.docx" };
  if (sfd.ShowDialog(this) != DialogResult.OK) return;
- try
+ await RunWithProgressAsync(async () =>
  {
  await _reportService.GenerateRentalAgreementAsync(id, sfd.FileName);
  MessageBox.Show("Word-документ создан");
- }
- catch (Exception ex)
- {
- MessageBox.Show("Ошибка: " + ex.Message);
- }
+ });
  }
 
  private async void buttonImportClients_Click(object sender, EventArgs e)
  {
  using var ofd = new OpenFileDialog { Filter = "Excel files (*.xlsx)|*.xlsx", Title = "Select clients xlsx" };
  if (ofd.ShowDialog(this) != DialogResult.OK) return;
- try
+ await RunWithProgressAsync(async () =>
  {
  var res = await _importService.ImportClientsFromExcelAsync(ofd.FileName);
  MessageBox.Show($"Clients import finished. Added={res.Added}, Skipped={res.Skipped}, Errors={res.Errors.Count}");
- }
- catch (Exception ex)
- {
- MessageBox.Show("Ошибка импорта: " + ex.Message);
- }
+ // refresh UI content if needed
+ });
  }
 
  private async void buttonImportCars_Click(object sender, EventArgs e)
  {
  using var ofd = new OpenFileDialog { Filter = "Excel files (*.xlsx)|*.xlsx", Title = "Select cars xlsx" };
  if (ofd.ShowDialog(this) != DialogResult.OK) return;
- try
+ await RunWithProgressAsync(async () =>
  {
  var res = await _importService.ImportCarsFromExcelAsync(ofd.FileName);
  MessageBox.Show($"Cars import finished. Added={res.Added}, Skipped={res.Skipped}, Errors={res.Errors.Count}");
- }
- catch (Exception ex)
- {
- MessageBox.Show("Ошибка импорта: " + ex.Message);
- }
+ });
  }
  }
 }
