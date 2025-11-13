@@ -1,4 +1,5 @@
 using System;
+using System.Linq;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 using AutoRent.Data;
@@ -48,7 +49,7 @@ namespace AutoRent.UI.Forms
  await _context.SaveChangesAsync();
 
  // Refresh binding
- dataGridViewCars.Refresh();
+ dataGridViewCars.DataSource = _context.Cars.Local.ToBindingList();
  MessageBox.Show("Автомобиль добавлен");
  }
  catch (Exception ex)
@@ -69,7 +70,7 @@ namespace AutoRent.UI.Forms
 
  _context.Cars.Remove(car);
  await _context.SaveChangesAsync();
- dataGridViewCars.Refresh();
+ dataGridViewCars.DataSource = _context.Cars.Local.ToBindingList();
  }
  }
  catch (Exception ex)
@@ -77,6 +78,29 @@ namespace AutoRent.UI.Forms
  MessageBox.Show("Ошибка: " + ex.Message);
  Logger.Error("CarsForm.buttonDelete_Click: " + ex);
  }
+ }
+
+ private void textBoxFilterMake_TextChanged(object sender, EventArgs e)
+ {
+ ApplyFilters();
+ }
+
+ private void textBoxFilterType_TextChanged(object sender, EventArgs e)
+ {
+ ApplyFilters();
+ }
+
+ private void ApplyFilters()
+ {
+ var make = textBoxFilterMake.Text.Trim();
+ var type = textBoxFilterType.Text.Trim();
+ var list = _context.Cars.Local.AsEnumerable();
+ if (!string.IsNullOrEmpty(make))
+ list = list.Where(c => c.Make.IndexOf(make, StringComparison.OrdinalIgnoreCase) >=0);
+ if (!string.IsNullOrEmpty(type))
+ list = list.Where(c => c.Type.IndexOf(type, StringComparison.OrdinalIgnoreCase) >=0);
+ dataGridViewCars.DataSource = null;
+ dataGridViewCars.DataSource = list.ToList();
  }
  }
 }
