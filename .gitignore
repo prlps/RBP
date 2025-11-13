@@ -15,7 +15,7 @@
 x64/
 x86/
 [Ww][Ii][Nn]32/
-[Aa][Rr][Mm]/
+[Aa][Rr]m/
 [Aa][Rr][Mm]64/
 bld/
 [Bb]in/
@@ -52,3 +52,51 @@ CodeCoverage/
 *.VisualState.xml
 TestResult.xml
 nunit-*.xml
+
+# Visual Studio
+.vs/
+
+# User-specific
+*.user
+*.suo
+*.userosscache
+*.sln.docstates
+*.db
+*.db-journal
+autorent.db
+.vscode/
+.idea/
+*.log
+*.vsix
+*.nupkg
+packages/
+*.pdb
+*.cache
+
+# Rider
+.idea/
+
+# Visual Studio Code
+.vscode/
+
+# Resharper
+_ReSharper*/
+
+# EF Migrations
+Migrations/
+
+# node
+node_modules/
+
+# Ignore generated files
+**/*.g.cs
+
+# Local test output
+TestResults/
+
+# NuGet
+.nuget/
+
+# OS files
+Thumbs.db
+.DS_Store
