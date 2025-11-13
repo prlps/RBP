@@ -15,6 +15,7 @@ namespace AutoRent.UI.Forms
  #region Windows Form Designer generated code
  private void InitializeComponent()
  {
+ this.components = new System.ComponentModel.Container();
  this.dataGridViewCars = new System.Windows.Forms.DataGridView();
  this.textBoxMake = new System.Windows.Forms.TextBox();
  this.textBoxType = new System.Windows.Forms.TextBox();
@@ -30,9 +31,12 @@ namespace AutoRent.UI.Forms
  this.textBoxFilterType = new System.Windows.Forms.TextBox();
  this.labelFilterMake = new System.Windows.Forms.Label();
  this.labelFilterType = new System.Windows.Forms.Label();
+ this.errorProviderCars = new System.Windows.Forms.ErrorProvider(this.components);
+ this.toolTip = new System.Windows.Forms.ToolTip(this.components);
  ((System.ComponentModel.ISupportInitialize)(this.dataGridViewCars)).BeginInit();
  ((System.ComponentModel.ISupportInitialize)(this.numericUpDownPurchasePrice)).BeginInit();
  ((System.ComponentModel.ISupportInitialize)(this.numericUpDownRentalPrice)).BeginInit();
+ ((System.ComponentModel.ISupportInitialize)(this.errorProviderCars)).BeginInit();
  this.SuspendLayout();
  // 
  // dataGridViewCars
@@ -109,6 +113,20 @@ namespace AutoRent.UI.Forms
  this.textBoxFilterType.TextChanged += new System.EventHandler(this.textBoxFilterType_TextChanged);
 
  // 
+ // errorProviderCars
+ //
+ this.errorProviderCars.ContainerControl = this;
+
+ // 
+ // toolTip
+ //
+ this.toolTip.SetToolTip(this.textBoxMake, "Введите марку/модель автомобиля");
+ this.toolTip.SetToolTip(this.textBoxType, "Введите тип автомобиля (седан, SUV и т.д.)");
+ this.toolTip.SetToolTip(this.numericUpDownRentalPrice, "Стоимость аренды в день");
+ this.toolTip.SetToolTip(this.buttonAdd, "Добавить или сохранить автомобиль");
+ this.toolTip.SetToolTip(this.buttonDelete, "Удалить выбранный автомобиль");
+
+ // 
  // CarsForm
  // 
  this.ClientSize = new System.Drawing.Size(860,420);
@@ -133,6 +151,7 @@ namespace AutoRent.UI.Forms
  ((System.ComponentModel.ISupportInitialize)(this.dataGridViewCars)).EndInit();
  ((System.ComponentModel.ISupportInitialize)(this.numericUpDownPurchasePrice)).EndInit();
  ((System.ComponentModel.ISupportInitialize)(this.numericUpDownRentalPrice)).EndInit();
+ ((System.ComponentModel.ISupportInitialize)(this.errorProviderCars)).EndInit();
  this.ResumeLayout(false);
  this.PerformLayout();
  }
@@ -152,5 +171,7 @@ namespace AutoRent.UI.Forms
  private System.Windows.Forms.TextBox textBoxFilterType;
  private System.Windows.Forms.Label labelFilterMake;
  private System.Windows.Forms.Label labelFilterType;
+ private System.Windows.Forms.ErrorProvider errorProviderCars;
+ private System.Windows.Forms.ToolTip toolTip;
  }
 }

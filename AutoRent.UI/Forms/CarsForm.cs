@@ -21,22 +21,41 @@ namespace AutoRent.UI.Forms
 
  private async void CarsForm_Load(object sender, EventArgs e)
  {
+ FormStyles.ApplyDefault(this);
  await _context.Cars.LoadAsync();
  dataGridViewCars.DataSource = _context.Cars.Local.ToBindingList();
  }
 
+ private bool ValidateCarInputs()
+ {
+ errorProviderCars.Clear();
+ var ok = true;
+ if (string.IsNullOrWhiteSpace(textBoxMake.Text))
+ {
+ errorProviderCars.SetError(textBoxMake, "Make required");
+ ok = false;
+ }
+ if (string.IsNullOrWhiteSpace(textBoxType.Text))
+ {
+ errorProviderCars.SetError(textBoxType, "Type required");
+ ok = false;
+ }
+ if (numericUpDownRentalPrice.Value <=0)
+ {
+ errorProviderCars.SetError(numericUpDownRentalPrice, "Rental price must be >0");
+ ok = false;
+ }
+ return ok;
+ }
+
  private async void buttonAdd_Click(object sender, EventArgs e)
  {
+ if (!ValidateCarInputs()) return;
+ buttonAdd.Enabled = false;
  try
  {
  var make = textBoxMake.Text.Trim();
  var type = textBoxType.Text.Trim();
- if (string.IsNullOrEmpty(make) || string.IsNullOrEmpty(type))
- {
- MessageBox.Show("Введите Make и Type для автомобиля.");
- return;
- }
-
  var car = new Car
  {
  Make = make,
@@ -48,7 +67,6 @@ namespace AutoRent.UI.Forms
  _context.Cars.Add(car);
  await _context.SaveChangesAsync();
 
- // Refresh binding
  dataGridViewCars.DataSource = _context.Cars.Local.ToBindingList();
  MessageBox.Show("Автомобиль добавлен");
  }
@@ -56,6 +74,10 @@ namespace AutoRent.UI.Forms
  {
  MessageBox.Show("Ошибка: " + ex.Message);
  Logger.Error("CarsForm.buttonAdd_Click: " + ex);
+ }
+ finally
+ {
+ buttonAdd.Enabled = true;
  }
  }
 
@@ -95,10 +117,8 @@ namespace AutoRent.UI.Forms
  var make = textBoxFilterMake.Text.Trim();
  var type = textBoxFilterType.Text.Trim();
  var list = _context.Cars.Local.AsEnumerable();
- if (!string.IsNullOrEmpty(make))
- list = list.Where(c => c.Make.IndexOf(make, StringComparison.OrdinalIgnoreCase) >=0);
- if (!string.IsNullOrEmpty(type))
- list = list.Where(c => c.Type.IndexOf(type, StringComparison.OrdinalIgnoreCase) >=0);
+ if (!string.IsNullOrEmpty(make)) list = list.Where(c => c.Make.IndexOf(make, StringComparison.OrdinalIgnoreCase) >=0);
+ if (!string.IsNullOrEmpty(type)) list = list.Where(c => c.Type.IndexOf(type, StringComparison.OrdinalIgnoreCase) >=0);
  dataGridViewCars.DataSource = null;
  dataGridViewCars.DataSource = list.ToList();
  }
