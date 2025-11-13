@@ -28,187 +28,219 @@ base.Dispose(disposing);
 /// </summary>
 private void InitializeComponent()
 {
+this.components = new System.ComponentModel.Container();
 this.dataGridViewRentals = new System.Windows.Forms.DataGridView();
+this.rightPanel = new System.Windows.Forms.FlowLayoutPanel();
+this.labelFilterClient = new System.Windows.Forms.Label();
+this.textBoxFilterClient = new System.Windows.Forms.TextBox();
+this.labelFilterFrom = new System.Windows.Forms.Label();
+this.dateTimePickerFilterFrom = new System.Windows.Forms.DateTimePicker();
+this.labelFilterTo = new System.Windows.Forms.Label();
+this.dateTimePickerFilterTo = new System.Windows.Forms.DateTimePicker();
+this.labelCar = new System.Windows.Forms.Label();
 this.comboBoxCars = new System.Windows.Forms.ComboBox();
+this.labelClient = new System.Windows.Forms.Label();
 this.comboBoxClients = new System.Windows.Forms.ComboBox();
+this.labelDateOut = new System.Windows.Forms.Label();
 this.dateTimePickerDateOut = new System.Windows.Forms.DateTimePicker();
+this.labelPlannedReturn = new System.Windows.Forms.Label();
 this.dateTimePickerPlannedReturn = new System.Windows.Forms.DateTimePicker();
-this.dateTimePickerActualReturn = new System.Windows.Forms.DateTimePicker();
+this.labelPrice = new System.Windows.Forms.Label();
 this.numericUpDownPricePerDay = new System.Windows.Forms.NumericUpDown();
+this.labelActualReturn = new System.Windows.Forms.Label();
+this.dateTimePickerActualReturn = new System.Windows.Forms.DateTimePicker();
+this.labelNotes = new System.Windows.Forms.Label();
 this.textBoxNotes = new System.Windows.Forms.TextBox();
 this.buttonCreate = new System.Windows.Forms.Button();
 this.buttonClose = new System.Windows.Forms.Button();
-this.labelCar = new System.Windows.Forms.Label();
-this.labelClient = new System.Windows.Forms.Label();
-this.labelDateOut = new System.Windows.Forms.Label();
-this.labelPlannedReturn = new System.Windows.Forms.Label();
-this.labelActualReturn = new System.Windows.Forms.Label();
-this.labelPrice = new System.Windows.Forms.Label();
-this.labelNotes = new System.Windows.Forms.Label();
-this.textBoxFilterClient = new System.Windows.Forms.TextBox();
-this.labelFilterClient = new System.Windows.Forms.Label();
-this.dateTimePickerFilterFrom = new System.Windows.Forms.DateTimePicker();
-this.dateTimePickerFilterTo = new System.Windows.Forms.DateTimePicker();
-this.labelFilterFrom = new System.Windows.Forms.Label();
-this.labelFilterTo = new System.Windows.Forms.Label();
 ((System.ComponentModel.ISupportInitialize)(this.dataGridViewRentals)).BeginInit();
 ((System.ComponentModel.ISupportInitialize)(this.numericUpDownPricePerDay)).BeginInit();
 this.SuspendLayout();
-//
+// 
 // dataGridViewRentals
-//
+// 
 this.dataGridViewRentals.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
-this.dataGridViewRentals.Location = new System.Drawing.Point(12,70);
+this.dataGridViewRentals.Dock = System.Windows.Forms.DockStyle.Fill;
+this.dataGridViewRentals.Location = new System.Drawing.Point(12,12);
 this.dataGridViewRentals.Name = "dataGridViewRentals";
 this.dataGridViewRentals.RowTemplate.Height =25;
-this.dataGridViewRentals.Size = new System.Drawing.Size(600,320);
 this.dataGridViewRentals.TabIndex =0;
+// 
+// rightPanel
+// 
+this.rightPanel.Dock = System.Windows.Forms.DockStyle.Right;
+this.rightPanel.FlowDirection = System.Windows.Forms.FlowDirection.TopDown;
+this.rightPanel.Padding = new System.Windows.Forms.Padding(8);
+this.rightPanel.AutoScroll = true;
+this.rightPanel.WrapContents = false;
+this.rightPanel.Width =320;
+// 
+// labelFilterClient
+// 
+this.labelFilterClient.Text = "Фильтр по фамилии клиента:";
+this.labelFilterClient.AutoSize = true;
+this.labelFilterClient.Margin = new System.Windows.Forms.Padding(3,6,3,0);
+// 
+// textBoxFilterClient
+// 
+this.textBoxFilterClient.Width =280;
+this.textBoxFilterClient.Margin = new System.Windows.Forms.Padding(3,0,3,6);
+this.textBoxFilterClient.TextChanged += new System.EventHandler(this.textBoxFilterClient_TextChanged);
+// 
+// labelFilterFrom
+// 
+this.labelFilterFrom.Text = "Дата от:";
+this.labelFilterFrom.AutoSize = true;
+this.labelFilterFrom.Margin = new System.Windows.Forms.Padding(3,6,3,0);
+// 
+// dateTimePickerFilterFrom
+// 
+this.dateTimePickerFilterFrom.Width =150;
+this.dateTimePickerFilterFrom.Margin = new System.Windows.Forms.Padding(3,0,3,6);
+this.dateTimePickerFilterFrom.ValueChanged += new System.EventHandler(this.FilterControl_ValueChanged);
+// 
+// labelFilterTo
+// 
+this.labelFilterTo.Text = "Дата до:";
+this.labelFilterTo.AutoSize = true;
+this.labelFilterTo.Margin = new System.Windows.Forms.Padding(3,6,3,0);
+// 
+// dateTimePickerFilterTo
+// 
+this.dateTimePickerFilterTo.Width =150;
+this.dateTimePickerFilterTo.Margin = new System.Windows.Forms.Padding(3,0,3,6);
+this.dateTimePickerFilterTo.ValueChanged += new System.EventHandler(this.FilterControl_ValueChanged);
+// 
+// labelCar
+// 
+this.labelCar.Text = "Автомобиль:";
+this.labelCar.AutoSize = true;
+this.labelCar.Margin = new System.Windows.Forms.Padding(3,6,3,0);
 // 
 // comboBoxCars
 // 
-this.comboBoxCars.FormattingEnabled = true;
-this.comboBoxCars.Location = new System.Drawing.Point(630,30);
-this.comboBoxCars.Name = "comboBoxCars";
-this.comboBoxCars.Size = new System.Drawing.Size(200,23);
-this.comboBoxCars.TabIndex =1;
+this.comboBoxCars.Width =280;
+this.comboBoxCars.Margin = new System.Windows.Forms.Padding(3,0,3,6);
+// 
+// labelClient
+// 
+this.labelClient.Text = "Клиент:";
+this.labelClient.AutoSize = true;
+this.labelClient.Margin = new System.Windows.Forms.Padding(3,6,3,0);
 // 
 // comboBoxClients
 // 
-this.comboBoxClients.FormattingEnabled = true;
-this.comboBoxClients.Location = new System.Drawing.Point(630,70);
-this.comboBoxClients.Name = "comboBoxClients";
-this.comboBoxClients.Size = new System.Drawing.Size(200,23);
-this.comboBoxClients.TabIndex =2;
+this.comboBoxClients.Width =280;
+this.comboBoxClients.Margin = new System.Windows.Forms.Padding(3,0,3,6);
+// 
+// labelDateOut
+// 
+this.labelDateOut.Text = "Дата выдачи:";
+this.labelDateOut.AutoSize = true;
+this.labelDateOut.Margin = new System.Windows.Forms.Padding(3,6,3,0);
 // 
 // dateTimePickerDateOut
 // 
-this.dateTimePickerDateOut.Location = new System.Drawing.Point(630,110);
-this.dateTimePickerDateOut.Name = "dateTimePickerDateOut";
-this.dateTimePickerDateOut.Size = new System.Drawing.Size(200,23);
-this.dateTimePickerDateOut.TabIndex =3;
+this.dateTimePickerDateOut.Width =150;
+this.dateTimePickerDateOut.Margin = new System.Windows.Forms.Padding(3,0,3,6);
+// 
+// labelPlannedReturn
+// 
+this.labelPlannedReturn.Text = "Планируемая дата возврата:";
+this.labelPlannedReturn.AutoSize = true;
+this.labelPlannedReturn.Margin = new System.Windows.Forms.Padding(3,6,3,0);
 // 
 // dateTimePickerPlannedReturn
 // 
-this.dateTimePickerPlannedReturn.Location = new System.Drawing.Point(630,150);
-this.dateTimePickerPlannedReturn.Name = "dateTimePickerPlannedReturn";
-this.dateTimePickerPlannedReturn.Size = new System.Drawing.Size(200,23);
-this.dateTimePickerPlannedReturn.TabIndex =4;
+this.dateTimePickerPlannedReturn.Width =150;
+this.dateTimePickerPlannedReturn.Margin = new System.Windows.Forms.Padding(3,0,3,6);
 // 
-// dateTimePickerActualReturn
+// labelPrice
 // 
-this.dateTimePickerActualReturn.Location = new System.Drawing.Point(630,230);
-this.dateTimePickerActualReturn.Name = "dateTimePickerActualReturn";
-this.dateTimePickerActualReturn.Size = new System.Drawing.Size(200,23);
-this.dateTimePickerActualReturn.TabIndex =5;
+this.labelPrice.Text = "Цена/день:";
+this.labelPrice.AutoSize = true;
+this.labelPrice.Margin = new System.Windows.Forms.Padding(3,6,3,0);
 // 
 // numericUpDownPricePerDay
 // 
 this.numericUpDownPricePerDay.DecimalPlaces =2;
-this.numericUpDownPricePerDay.Location = new System.Drawing.Point(630,190);
-this.numericUpDownPricePerDay.Maximum = new decimal(new int[] {100000,0,0,0 });
-this.numericUpDownPricePerDay.Name = "numericUpDownPricePerDay";
-this.numericUpDownPricePerDay.Size = new System.Drawing.Size(200,23);
-this.numericUpDownPricePerDay.TabIndex =6;
+this.numericUpDownPricePerDay.Maximum = new decimal(new int[] {100000,0,0,0});
+this.numericUpDownPricePerDay.Width =120;
+this.numericUpDownPricePerDay.Margin = new System.Windows.Forms.Padding(3,0,3,6);
+// 
+// labelActualReturn
+// 
+this.labelActualReturn.Text = "Фактическая дата возврата:";
+this.labelActualReturn.AutoSize = true;
+this.labelActualReturn.Margin = new System.Windows.Forms.Padding(3,6,3,0);
+// 
+// dateTimePickerActualReturn
+// 
+this.dateTimePickerActualReturn.Width =150;
+this.dateTimePickerActualReturn.Margin = new System.Windows.Forms.Padding(3,0,3,6);
+// 
+// labelNotes
+// 
+this.labelNotes.Text = "Примечания:";
+this.labelNotes.AutoSize = true;
+this.labelNotes.Margin = new System.Windows.Forms.Padding(3,6,3,0);
 // 
 // textBoxNotes
 // 
-this.textBoxNotes.Location = new System.Drawing.Point(630,270);
+this.textBoxNotes.Width =280;
+this.textBoxNotes.Height =60;
 this.textBoxNotes.Multiline = true;
-this.textBoxNotes.Name = "textBoxNotes";
-this.textBoxNotes.Size = new System.Drawing.Size(200,60);
-this.textBoxNotes.TabIndex =7;
+this.textBoxNotes.Margin = new System.Windows.Forms.Padding(3,0,3,6);
 // 
 // buttonCreate
 // 
-this.buttonCreate.Location = new System.Drawing.Point(630,340);
-this.buttonCreate.Name = "buttonCreate";
-this.buttonCreate.Size = new System.Drawing.Size(95,32);
-this.buttonCreate.TabIndex =8;
 this.buttonCreate.Text = "Создать";
-this.buttonCreate.UseVisualStyleBackColor = true;
+this.buttonCreate.Width =120;
+this.buttonCreate.Margin = new System.Windows.Forms.Padding(3,6,3,6);
 this.buttonCreate.Click += new System.EventHandler(this.buttonCreate_Click);
 // 
 // buttonClose
 // 
-this.buttonClose.Location = new System.Drawing.Point(735,340);
-this.buttonClose.Name = "buttonClose";
-this.buttonClose.Size = new System.Drawing.Size(95,32);
-this.buttonClose.TabIndex =9;
 this.buttonClose.Text = "Закрыть аренду";
-this.buttonClose.UseVisualStyleBackColor = true;
+this.buttonClose.Width =120;
+this.buttonClose.Margin = new System.Windows.Forms.Padding(3,0,3,6);
 this.buttonClose.Click += new System.EventHandler(this.buttonClose_Click);
 // 
-// Labels
-//
-this.labelCar.Location = new System.Drawing.Point(630,10);
-this.labelCar.Text = "Автомобиль:";
-this.labelClient.Location = new System.Drawing.Point(630,50);
-this.labelClient.Text = "Клиент:";
-this.labelDateOut.Location = new System.Drawing.Point(630,90);
-this.labelDateOut.Text = "Дата выдачи:";
-this.labelPlannedReturn.Location = new System.Drawing.Point(630,130);
-this.labelPlannedReturn.Text = "Планируемая дата возврата:";
-this.labelPrice.Location = new System.Drawing.Point(630,170);
-this.labelPrice.Text = "Цена/день:";
-this.labelActualReturn.Location = new System.Drawing.Point(630,210);
-this.labelActualReturn.Text = "Фактическая дата возврата:";
-this.labelNotes.Location = new System.Drawing.Point(630,250);
-this.labelNotes.Text = "Примечания:";
-
-// Filter controls
-this.labelFilterClient.Location = new System.Drawing.Point(12,12);
-this.labelFilterClient.Text = "Фильтр по фамилии клиента:";
-this.textBoxFilterClient.Location = new System.Drawing.Point(12,30);
-this.textBoxFilterClient.Name = "textBoxFilterClient";
-this.textBoxFilterClient.Size = new System.Drawing.Size(200,23);
-this.textBoxFilterClient.TextChanged += new System.EventHandler(this.textBoxFilterClient_TextChanged);
-
-this.labelFilterFrom.Location = new System.Drawing.Point(220,12);
-this.labelFilterFrom.Text = "Дата от:";
-this.dateTimePickerFilterFrom.Location = new System.Drawing.Point(220,30);
-this.dateTimePickerFilterFrom.Name = "dateTimePickerFilterFrom";
-this.dateTimePickerFilterFrom.Size = new System.Drawing.Size(150,23);
-this.dateTimePickerFilterFrom.ValueChanged += new System.EventHandler(this.FilterControl_ValueChanged);
-
-this.labelFilterTo.Location = new System.Drawing.Point(380,12);
-this.labelFilterTo.Text = "Дата до:";
-this.dateTimePickerFilterTo.Location = new System.Drawing.Point(380,30);
-this.dateTimePickerFilterTo.Name = "dateTimePickerFilterTo";
-this.dateTimePickerFilterTo.Size = new System.Drawing.Size(150,23);
-this.dateTimePickerFilterTo.ValueChanged += new System.EventHandler(this.FilterControl_ValueChanged);
-
-
-//
+// add controls to rightPanel
+// 
+this.rightPanel.Controls.Add(this.labelFilterClient);
+this.rightPanel.Controls.Add(this.textBoxFilterClient);
+this.rightPanel.Controls.Add(this.labelFilterFrom);
+this.rightPanel.Controls.Add(this.dateTimePickerFilterFrom);
+this.rightPanel.Controls.Add(this.labelFilterTo);
+this.rightPanel.Controls.Add(this.dateTimePickerFilterTo);
+this.rightPanel.Controls.Add(this.labelCar);
+this.rightPanel.Controls.Add(this.comboBoxCars);
+this.rightPanel.Controls.Add(this.labelClient);
+this.rightPanel.Controls.Add(this.comboBoxClients);
+this.rightPanel.Controls.Add(this.labelDateOut);
+this.rightPanel.Controls.Add(this.dateTimePickerDateOut);
+this.rightPanel.Controls.Add(this.labelPlannedReturn);
+this.rightPanel.Controls.Add(this.dateTimePickerPlannedReturn);
+this.rightPanel.Controls.Add(this.labelPrice);
+this.rightPanel.Controls.Add(this.numericUpDownPricePerDay);
+this.rightPanel.Controls.Add(this.labelActualReturn);
+this.rightPanel.Controls.Add(this.dateTimePickerActualReturn);
+this.rightPanel.Controls.Add(this.labelNotes);
+this.rightPanel.Controls.Add(this.textBoxNotes);
+this.rightPanel.Controls.Add(this.buttonCreate);
+this.rightPanel.Controls.Add(this.buttonClose);
+// 
 // RentalsForm
-//
+// 
 this.AutoScaleDimensions = new System.Drawing.SizeF(7F,15F);
 this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-this.ClientSize = new System.Drawing.Size(860,380);
-this.Controls.Add(this.labelFilterTo);
-this.Controls.Add(this.dateTimePickerFilterTo);
-this.Controls.Add(this.labelFilterFrom);
-this.Controls.Add(this.dateTimePickerFilterFrom);
-this.Controls.Add(this.labelFilterClient);
-this.Controls.Add(this.textBoxFilterClient);
-this.Controls.Add(this.labelNotes);
-this.Controls.Add(this.labelActualReturn);
-this.Controls.Add(this.labelPrice);
-this.Controls.Add(this.labelPlannedReturn);
-this.Controls.Add(this.labelDateOut);
-this.Controls.Add(this.labelClient);
-this.Controls.Add(this.labelCar);
-this.Controls.Add(this.buttonClose);
-this.Controls.Add(this.buttonCreate);
-this.Controls.Add(this.textBoxNotes);
-this.Controls.Add(this.numericUpDownPricePerDay);
-this.Controls.Add(this.dateTimePickerActualReturn);
-this.Controls.Add(this.dateTimePickerPlannedReturn);
-this.Controls.Add(this.dateTimePickerDateOut);
-this.Controls.Add(this.comboBoxClients);
-this.Controls.Add(this.comboBoxCars);
+this.Padding = new System.Windows.Forms.Padding(12);
+this.ClientSize = new System.Drawing.Size(960,480);
 this.Controls.Add(this.dataGridViewRentals);
+this.Controls.Add(this.rightPanel);
 this.Name = "RentalsForm";
-this.Text = "Rentals";
+this.Text = "Аренды";
 this.Load += new System.EventHandler(this.RentalsForm_Load);
 ((System.ComponentModel.ISupportInitialize)(this.dataGridViewRentals)).EndInit();
 ((System.ComponentModel.ISupportInitialize)(this.numericUpDownPricePerDay)).EndInit();
@@ -220,6 +252,7 @@ this.PerformLayout();
 #endregion
 
 private System.Windows.Forms.DataGridView dataGridViewRentals;
+private System.Windows.Forms.FlowLayoutPanel rightPanel;
 private System.Windows.Forms.ComboBox comboBoxCars;
 private System.Windows.Forms.ComboBox comboBoxClients;
 private System.Windows.Forms.DateTimePicker dateTimePickerDateOut;
