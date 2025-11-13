@@ -100,17 +100,29 @@ namespace AutoRent.UI.Forms
 
  private void textBoxFilterClient_TextChanged(object sender, EventArgs e)
  {
+ ApplyFilters();
+ }
+
+ private void FilterControl_ValueChanged(object sender, EventArgs e)
+ {
+ ApplyFilters();
+ }
+
+ private void ApplyFilters()
+ {
  var filter = textBoxFilterClient.Text.Trim();
- if (string.IsNullOrEmpty(filter))
- {
- dataGridViewRentals.DataSource = _context.Rentals.Local.ToBindingList();
- }
- else
- {
- var filtered = _context.Rentals.Local.Where(r => r.Client != null && r.Client.LastName.IndexOf(filter, StringComparison.OrdinalIgnoreCase) >=0).ToList();
+ var from = dateTimePickerFilterFrom.Value.Date;
+ var to = dateTimePickerFilterTo.Value.Date;
+ var list = _context.Rentals.Local.AsEnumerable();
+
+ if (!string.IsNullOrEmpty(filter))
+ list = list.Where(r => r.Client != null && r.Client.LastName.IndexOf(filter, StringComparison.OrdinalIgnoreCase) >=0);
+
+ // Filter by date: rentals that intersect [from,to] period (DateOut <= to && PlannedReturnDate >= from)
+ list = list.Where(r => r.DateOut <= to && r.PlannedReturnDate >= from);
+
  dataGridViewRentals.DataSource = null;
- dataGridViewRentals.DataSource = filtered;
- }
+ dataGridViewRentals.DataSource = list.ToList();
  }
  }
 }
