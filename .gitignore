@@ -82,9 +82,6 @@ packages/
 # Resharper
 _ReSharper*/
 
-# EF Migrations
-Migrations/
-
 # node
 node_modules/
 
