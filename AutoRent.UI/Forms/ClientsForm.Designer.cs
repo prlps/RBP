@@ -15,6 +15,7 @@ namespace AutoRent.UI.Forms
  #region Windows Form Designer generated code
  private void InitializeComponent()
  {
+ this.components = new System.ComponentModel.Container();
  this.dataGridViewClients = new System.Windows.Forms.DataGridView();
  this.textBoxLastName = new System.Windows.Forms.TextBox();
  this.textBoxFirstName = new System.Windows.Forms.TextBox();
@@ -23,7 +24,10 @@ namespace AutoRent.UI.Forms
  this.textBoxPhone = new System.Windows.Forms.TextBox();
  this.buttonAdd = new System.Windows.Forms.Button();
  this.buttonDelete = new System.Windows.Forms.Button();
+ this.errorProviderClients = new System.Windows.Forms.ErrorProvider(this.components);
+ this.toolTip = new System.Windows.Forms.ToolTip(this.components);
  ((System.ComponentModel.ISupportInitialize)(this.dataGridViewClients)).BeginInit();
+ ((System.ComponentModel.ISupportInitialize)(this.errorProviderClients)).BeginInit();
  this.SuspendLayout();
  // 
  // dataGridViewClients
@@ -37,37 +41,37 @@ namespace AutoRent.UI.Forms
  // 
  // textBoxLastName
  // 
- this.textBoxLastName.Location = new System.Drawing.Point(630,12);
+ this.textBoxLastName.Location = new System.Drawing.Point(630,30);
  this.textBoxLastName.Name = "textBoxLastName";
  this.textBoxLastName.Size = new System.Drawing.Size(200,23);
  // 
  // textBoxFirstName
  // 
- this.textBoxFirstName.Location = new System.Drawing.Point(630,50);
+ this.textBoxFirstName.Location = new System.Drawing.Point(630,70);
  this.textBoxFirstName.Name = "textBoxFirstName";
  this.textBoxFirstName.Size = new System.Drawing.Size(200,23);
  // 
  // textBoxMiddleName
  // 
- this.textBoxMiddleName.Location = new System.Drawing.Point(630,90);
+ this.textBoxMiddleName.Location = new System.Drawing.Point(630,110);
  this.textBoxMiddleName.Name = "textBoxMiddleName";
  this.textBoxMiddleName.Size = new System.Drawing.Size(200,23);
  // 
  // textBoxAddress
  // 
- this.textBoxAddress.Location = new System.Drawing.Point(630,130);
+ this.textBoxAddress.Location = new System.Drawing.Point(630,150);
  this.textBoxAddress.Name = "textBoxAddress";
  this.textBoxAddress.Size = new System.Drawing.Size(200,23);
  // 
  // textBoxPhone
  // 
- this.textBoxPhone.Location = new System.Drawing.Point(630,170);
+ this.textBoxPhone.Location = new System.Drawing.Point(630,190);
  this.textBoxPhone.Name = "textBoxPhone";
  this.textBoxPhone.Size = new System.Drawing.Size(200,23);
  // 
  // buttonAdd
  // 
- this.buttonAdd.Location = new System.Drawing.Point(630,210);
+ this.buttonAdd.Location = new System.Drawing.Point(630,230);
  this.buttonAdd.Name = "buttonAdd";
  this.buttonAdd.Size = new System.Drawing.Size(95,32);
  this.buttonAdd.Text = "Добавить";
@@ -75,11 +79,22 @@ namespace AutoRent.UI.Forms
  // 
  // buttonDelete
  // 
- this.buttonDelete.Location = new System.Drawing.Point(735,210);
+ this.buttonDelete.Location = new System.Drawing.Point(735,230);
  this.buttonDelete.Name = "buttonDelete";
  this.buttonDelete.Size = new System.Drawing.Size(95,32);
  this.buttonDelete.Text = "Удалить";
  this.buttonDelete.Click += new System.EventHandler(this.buttonDelete_Click);
+ // 
+ // errorProviderClients
+ //
+ this.errorProviderClients.ContainerControl = this;
+ // 
+ // toolTip
+ //
+ this.toolTip.SetToolTip(this.textBoxLastName, "Фамилия клиента (обязательно)");
+ this.toolTip.SetToolTip(this.textBoxFirstName, "Имя клиента (обязательно)");
+ this.toolTip.SetToolTip(this.textBoxPhone, "Телефон клиента");
+
  // 
  // ClientsForm
  // 
@@ -96,6 +111,7 @@ namespace AutoRent.UI.Forms
  this.Text = "Clients";
  this.Load += new System.EventHandler(this.ClientsForm_Load);
  ((System.ComponentModel.ISupportInitialize)(this.dataGridViewClients)).EndInit();
+ ((System.ComponentModel.ISupportInitialize)(this.errorProviderClients)).EndInit();
  this.ResumeLayout(false);
  this.PerformLayout();
  }
@@ -108,5 +124,7 @@ namespace AutoRent.UI.Forms
  private System.Windows.Forms.TextBox textBoxPhone;
  private System.Windows.Forms.Button buttonAdd;
  private System.Windows.Forms.Button buttonDelete;
+ private System.Windows.Forms.ErrorProvider errorProviderClients;
+ private System.Windows.Forms.ToolTip toolTip;
  }
 }
