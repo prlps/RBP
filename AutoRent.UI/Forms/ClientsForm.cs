@@ -16,6 +16,44 @@ namespace AutoRent.UI.Forms
  {
  _context = context;
  InitializeComponent();
+ // handle double-click to edit
+ dataGridViewClients.CellDoubleClick += DataGridViewClients_CellDoubleClick;
+ }
+
+ private async void DataGridViewClients_CellDoubleClick(object? sender, DataGridViewCellEventArgs e)
+ {
+ if (e.RowIndex <0) return;
+ if (dataGridViewClients.Rows[e.RowIndex].DataBoundItem is Client client)
+ {
+ await EditClientAsync(client);
+ }
+ }
+
+ private async Task EditClientAsync(Client client)
+ {
+ using var dlg = new ClientEditForm(_context, client);
+ if (dlg.ShowDialog(this) == DialogResult.OK)
+ {
+ try
+ {
+ await _context.SaveChangesAsync();
+ await _context.Clients.LoadAsync();
+ dataGridViewClients.DataSource = _context.Clients.Local.ToBindingList();
+ }
+ catch (Exception ex)
+ {
+ MessageBox.Show("Ошибка сохранения: " + ex.Message);
+ Logger.Error("ClientsForm.EditClientAsync: " + ex);
+ }
+ }
+ }
+
+ private void buttonEdit_Click(object sender, EventArgs e)
+ {
+ if (dataGridViewClients.CurrentRow?.DataBoundItem is Client client)
+ {
+ _ = EditClientAsync(client);
+ }
  }
 
  private async void ClientsForm_Load(object sender, EventArgs e)
