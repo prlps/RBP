@@ -1,0 +1,18 @@
+[
+ {
+ "clientId":1,
+ "lastName":"Иванов",
+ "firstName":"Иван",
+ "middleName":null,
+ "address":"ул. Пушкина, д.1",
+ "phone":"+359881000001"
+ },
+ {
+ "clientId":2,
+ "lastName":"Петров",
+ "firstName":"Пётр",
+ "middleName":null,
+ "address":"ул. Лермонтова, д.2",
+ "phone":"+359881000002"
+ }
+]

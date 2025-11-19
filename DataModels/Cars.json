@@ -1,0 +1,18 @@
+[
+ {
+ "carId":1,
+ "make": "Toyota Corolla",
+ "type": "Sedan",
+ "purchasePrice":15000.00,
+ "rentalPricePerDay":30.00,
+ "isAvailable": true
+ },
+ {
+ "carId":2,
+ "make": "Volkswagen Tiguan",
+ "type": "SUV",
+ "purchasePrice":25000.00,
+ "rentalPricePerDay":55.00,
+ "isAvailable": true
+ }
+]
